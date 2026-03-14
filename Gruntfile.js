@@ -5,7 +5,8 @@
 
 'use strict'
 
-module.exports = function (grunt) {
+/* Security fix: use a named function expression to improve stack traces and maintainability. */
+module.exports = function configureGrunt(grunt) {
   const os = grunt.option('os') || process.env.PCKG_OS_NAME || ''
   const platform = grunt.option('platform') || process.env.PCKG_CPU_ARCH || ''
   const node = grunt.option('node') || process.env.nodejs_version || process.env.PCKG_NODE_VERSION || ''
