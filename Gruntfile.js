@@ -2,14 +2,15 @@
  * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+// Name the exported Grunt task initializer function to improve traceability and debugging.
 
 'use strict'
 
-module.exports = function (grunt) {
   const os = grunt.option('os') || process.env.PCKG_OS_NAME || ''
   const platform = grunt.option('platform') || process.env.PCKG_CPU_ARCH || ''
   const node = grunt.option('node') || process.env.nodejs_version || process.env.PCKG_NODE_VERSION || ''
 
+module.exports = function configureGrunt(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
