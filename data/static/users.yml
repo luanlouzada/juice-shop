@@ -104,7 +104,7 @@
       expYear: 2092
 -
   email: ciso
-  password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+  password: 'ciso-deluxe-fixture-password'
   key: ciso
   role: 'deluxe'
   securityQuestion:
@@ -112,7 +112,7 @@
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
 -
   email: support
-  password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
+  password: 'support-team-fixture-password'
   key: support
   role: 'admin'
   securityQuestion:
