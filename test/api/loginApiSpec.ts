@@ -76,7 +76,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'support@' + config.get<string>('application.domain'),
-        password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
+        password: 'support-team-fixture-password'
       }
     })
       .expect('status', 200)

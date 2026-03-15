@@ -109,12 +109,12 @@ describe('/rest/products/search', () => {
       .expect('json', 'data.?', {
         id: 5,
         price: `ciso@${config.get<string>('application.domain')}`,
-        deluxePrice: security.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
+        deluxePrice: security.hash('ciso-deluxe-fixture-password')
       })
       .expect('json', 'data.?', {
         id: 6,
         price: `support@${config.get<string>('application.domain')}`,
-        deluxePrice: security.hash('J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P')
+        deluxePrice: security.hash('support-team-fixture-password')
       })
   })
 
