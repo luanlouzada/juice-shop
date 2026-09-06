@@ -1,0 +1,47 @@
+name: "KubbiSec Auditoria sem IA"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kubbisec-scans:
+    runs-on: ubuntu-latest
+    env:
+      KUBBISEC_API_KEY: ${{ secrets.KUBBISEC_API_KEY }}
+      KUBBISEC_ORG_ID: ${{ vars.KUBBISEC_ORG_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ASPM CLI
+        run: npm install -g @kubbisec/aspm
+
+      # semgrep/semgrep-action está deprecated — imagem oficial semgrep/semgrep (Semgrep docs).
+      - name: Semgrep scan
+        run: |
+          docker run --rm -v "$PWD:/src" -w /src semgrep/semgrep:latest \
+            semgrep scan --config auto --json -o semgrep-report.json .
+
+      - name: Upload Semgrep report
+        run: aspm upload semgrep-report.json -s semgrep -p ${{ vars.KUBBISEC_PROJECT }}
+
+      # Quality gate KubbiSec: avalia os relatórios locais desta job (modelo Naus aspm_gate)
+      - name: KubbiSec ASPM gate
+        env:
+          KUBBISEC_PROJECT: ${{ vars.KUBBISEC_PROJECT }}
+        run: |
+          cat > kubbisec-gate-rules.json <<'EOF'
+          {
+            "rules": {
+              "vulnerabilities": {
+                "max_by_severity": {
+                  "CRITICAL": 0,
+                  "HIGH": 0
+                }
+              }
+            }
+          }
+          EOF
+          aspm gate --rules-file kubbisec-gate-rules.json -p ${{ vars.KUBBISEC_PROJECT }}
